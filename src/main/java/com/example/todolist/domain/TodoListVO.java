@@ -14,7 +14,7 @@ public class TodoListVO {
     private String member_login_id;  // 외래 키
 }
 
-/* 수정본
+/* SQL 문
 CREATE TABLE member (
     login_id VARCHAR(20) PRIMARY KEY,
     login_passwd VARCHAR(20) NOT NULL,
