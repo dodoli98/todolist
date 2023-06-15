@@ -1,15 +1,14 @@
 package com.example.todolist.mapper;
 
 import com.example.todolist.domain.TodoListVO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface TodoListMapper {
     // TodoList 의 모든 레코드를 조회
     List<TodoListVO> getList();
-
-    // Create
-    void insert(TodoListVO board);
 
     // Create
     void insertSelectKey(TodoListVO board);

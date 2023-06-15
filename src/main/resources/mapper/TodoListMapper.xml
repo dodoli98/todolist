@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.todolist.mapper.TodoListMapper">
+
+    <!-- board 테이블의 모든 레코드를 조회 -->
+    <select id="getList" resultType="com.example.todolist.domain.TodoListVO">
+        SELECT * FROM todolist
+    </select>
+
+    <!-- Create: 새로운 TodoList 레코드 추가 -->
+    <insert id="insertSelectKey" parameterType="com.example.todolist.domain.TodoListVO">
+        <selectKey keyProperty="todo_id" order="BEFORE" resultType="long">
+            SELECT NEXTVAL('SEQ_TODO_ID') FROM dual
+        </selectKey>
+
+        INSERT INTO todolist (todo_id, content, is_completed)
+        VALUES (#{todo_id}, #{content}, default)
+    </insert>
+
+    <!-- Read: 특정 TodoList 레코드 조회 -->
+    <select id="read" parameterType="Long" resultType="com.example.todolist.domain.TodoListVO">
+        SELECT * FROM todolist WHERE todo_id = #{id}
+    </select>
+
+    <!-- Update: TodoList 레코드 수정 -->
+    <update id="update" parameterType="com.example.todolist.domain.TodoListVO">
+        UPDATE todolist
+        SET content = #{content}, updatedate = CURRENT_TIMESTAMP
+        WHERE todo_id = #{todo_id}
+    </update>
+
+    <!-- Delete: 특정 TodoList 레코드 삭제 -->
+    <delete id="delete" parameterType="Long">
+        DELETE FROM todolist WHERE todo_id = #{id}
+    </delete>
+
+</mapper>

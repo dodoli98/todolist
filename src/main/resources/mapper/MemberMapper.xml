@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.todolist.mapper.MemberMapper">
+    <insert id="insertMember" parameterType="com.example.todolist.domain.MemberVO">
+        INSERT INTO member (login_id, login_passwd, name)
+        VALUES (#{login_id}, #{login_passwd}, #{name})
+    </insert>
+
+    <select id="selectMemberById" resultType="com.example.todolist.domain.MemberVO">
+        SELECT login_id, login_passwd, name
+        FROM member
+        WHERE login_id = #{login_id}
+    </select>
+</mapper>
+
