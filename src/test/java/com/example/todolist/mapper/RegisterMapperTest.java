@@ -20,7 +20,7 @@ class RegisterMapperTest {
     public void insertMember() {
         MemberVO member = new MemberVO();
 
-        member.setLogin_id("123");
+        member.setLogin_id("c");
         member.setLogin_passwd("123");
         member.setName("Mr.Lee");
 

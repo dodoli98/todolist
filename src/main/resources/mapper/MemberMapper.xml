@@ -21,6 +21,12 @@
         DELETE FROM member WHERE login_id = #{login_id}
     </delete>
 
+    <!-- member 테이블의 모든 레코드를 조회 -->
+    <select id="getList" resultType="com.example.todolist.domain.MemberVO">
+        <![CDATA[
+    SELECT * FROM member
+    ]]>
+    </select>
 
 </mapper>
 

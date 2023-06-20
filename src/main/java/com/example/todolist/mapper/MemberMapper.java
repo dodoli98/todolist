@@ -15,4 +15,7 @@ public interface MemberMapper {
 
     // Delete → 반환 값이 int 인 경우 삭제한 레코드의 개수가 반환됨.
     int delete(String login_id);
+
+    // 모든 회원 정보를 조회
+    List<MemberVO> getList();
 }

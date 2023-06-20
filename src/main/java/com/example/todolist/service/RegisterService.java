@@ -1,18 +1,13 @@
 package com.example.todolist.service;
 
+import com.example.todolist.domain.MemberVO;
+
 public interface RegisterService {
     /**
-     * CREATE:          회원정보를 등록
-     * @param loginId   등록할 id
-     * @param password  id의 비밀번호
-     * @param name      회원 이름
+     * 회원가입
+     * @param member 회원가입하는 회원의 정보
      */
-    void register(String loginId, String password, String name);
+    void register(MemberVO member);
 
-    /**
-     * DELETE:          회원 정보를 삭제
-     *
-     * @param id        삭제할 회원의 id
-     * @return          정상적으로 회원 정보를 삭제했는지 여부 (True/False)
-     */
-    boolean delete(Long id);}
+
+}
