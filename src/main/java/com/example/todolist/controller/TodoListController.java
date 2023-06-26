@@ -1,0 +1,76 @@
+package com.example.todolist.controller;
+
+import com.example.todolist.domain.MemberVO;
+import com.example.todolist.domain.TodoListVO;
+import com.example.todolist.service.MemberService;
+import com.example.todolist.service.TodoListService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+@Controller
+@Slf4j
+public class TodoListController {
+    @Autowired
+    private TodoListService todoListService;
+
+    @Autowired
+    private MemberService memberService;
+
+    @GetMapping("/list")
+    public String list(Model model) {
+        model.addAttribute("list", todoListService.getList());
+        todoListService.getList();
+        log.info("TodoListController#getList()");
+
+        return "/todolist/list";
+    }
+
+
+    @PostMapping("/write")
+    public String write(HttpServletRequest request, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
+        // 세션객체를 생성해서
+        // 변수에 아이디값을 저장
+        HttpSession session = request.getSession();
+        String login_id = (String) session.getAttribute("login_id");
+
+        // 저장한 아이디값을 이용해 MemberVO 객체 생성
+        MemberVO member = new MemberVO();
+        member.setLogin_id(login_id);
+
+        // TodoListVO에 MemberVO 객체를 설정
+        todoListVO.setMember(member);
+        todoListService.register(todoListVO);
+
+        log.info("write = {}", todoListVO);
+
+        return "redirect:/todolist/read";
+    }
+
+
+    @GetMapping("/read")
+    public String read(@RequestParam Long id) {
+        todoListService.get(id);
+
+        log.info("Service.read(id) = {}", id);
+        return "redirect:/todolist/read";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam Long id) {
+        todoListService.delete(id);
+
+        log.info("Service.delete(id) = {}", id);
+
+        return "redirect:/todolist/list";
+    }
+
+
+}

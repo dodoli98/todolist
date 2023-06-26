@@ -20,6 +20,11 @@ public class TodoListServiceImpl implements TodoListService {
 
     @Override
     public void register(TodoListVO board) {
+        // 외래키 값 설정
+        // 외래키 값 설정
+        String memberLoginId = board.getMember().getLogin_id();
+        board.setMember_login_id(memberLoginId);
+
         log.info("register = {}", board);
         mapper.insertSelectKey(board);
     }

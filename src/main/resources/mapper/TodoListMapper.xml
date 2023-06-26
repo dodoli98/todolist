@@ -15,8 +15,8 @@
             SELECT NEXTVAL('SEQ_TODO_ID') FROM dual
         </selectKey>
 
-        INSERT INTO todolist (todo_id, content, is_completed)
-        VALUES (#{todo_id}, #{content}, default)
+        INSERT INTO todolist (todo_id, content, is_completed, member_login_id)
+        VALUES (#{todo_id}, #{content}, default, #{member_login_id})
     </insert>
 
     <!-- Read: 특정 TodoList 레코드 조회 -->

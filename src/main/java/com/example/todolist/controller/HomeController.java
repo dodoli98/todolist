@@ -45,7 +45,7 @@ public class HomeController {
 
         if (loginService.login(login_id, login_passwd)){
             request.getSession().setAttribute("login_id", login_id);
-            return "redirect:/home/todolist";
+            return "redirect:/todolist/list";
         } else
             return "redirect:/home/home";
     }
@@ -55,4 +55,5 @@ public class HomeController {
         request.getSession().removeAttribute("login_id");
         return "redirect:/home";
     }
+
 }

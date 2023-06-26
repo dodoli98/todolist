@@ -11,7 +11,9 @@ public class TodoListVO {
     private Date regdate;
     private Date updatedate;
     private Boolean is_completed;
-    private String member_login_id;  // 외래 키
+    private MemberVO member;  // MemberVO 참조 필드
+    private String member_login_id;
+
 }
 
 /* SQL 문

@@ -21,6 +21,7 @@ class HomeControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    // 홈화면 연결 확인
     @Test
     public void testHome() throws Exception{
         mockMvc.perform(get("/home"))
@@ -28,7 +29,7 @@ class HomeControllerTest {
                 .andDo(print());
     }
 
-
+    // 회원가입 테스트
     @Test
     public void testRegister() throws Exception{
         // GET 방식의 요청 생성
@@ -43,13 +44,25 @@ class HomeControllerTest {
                 .andDo(print());
     }
 
-
+    // 로그인 테스트
+    // 로그인 후 리스트화면 출력, 세션객체에 아이디값을 저장
     @Test
     public void testLogin() throws Exception{
         // POST 방식의 요청
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/login")
                 .param("login_id", "b")
                 .param("login_passwd", "123");
+
+        mockMvc.perform(builder)
+                .andExpect(status().is3xxRedirection())
+                .andDo(print());
+    }
+
+    // 로그아웃 테스트
+    @Test
+    public void testLogout() throws Exception {
+        // POST 방식의 요청
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/logout");
 
         mockMvc.perform(builder)
                 .andExpect(status().is3xxRedirection())
