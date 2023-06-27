@@ -63,6 +63,15 @@ public class TodoListController {
         return "redirect:/todolist/read";
     }
 
+    @PostMapping("/update")
+    public String update(@RequestParam Long id, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
+        todoListService.update(todoListVO);
+
+        log.info("Controller#Update");
+
+        return "redirect:/todolist/list";
+    }
+
     @GetMapping("/delete")
     public String delete(@RequestParam Long id) {
         todoListService.delete(id);
@@ -72,5 +81,14 @@ public class TodoListController {
         return "redirect:/todolist/list";
     }
 
+    // 로그인 성공이후 회원이 자신의 비밀번호를 수정하는 메서드
+    @PostMapping("/update_passwd")
+    public String update_passwd(MemberVO memberVO) {
+
+        memberService.update(memberVO);
+
+
+        return "redirect:/todolist/list";
+    }
 
 }
