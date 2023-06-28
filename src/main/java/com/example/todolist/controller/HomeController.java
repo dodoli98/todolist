@@ -29,12 +29,17 @@ public class HomeController {
         return "home/home";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/showRegisterPage")
+    public String showRegisterPage() {
+        return "/home/register";
+    }
+
+    @PostMapping("/register")
     public String register(MemberVO member, RedirectAttributes redirectAttributes) {
 
         registerService.register(member);
 
-        return "redirect:/home/home";
+        return "/home/home";
     }
 
     // 로그인에 성공한경우 세션 객체에 아이디 정보를 저장한다.
@@ -45,9 +50,9 @@ public class HomeController {
 
         if (loginService.login(login_id, login_passwd)){
             request.getSession().setAttribute("login_id", login_id);
-            return "redirect:/todolist/list";
+            return "/todolist/list";
         } else
-            return "redirect:/home/home";
+            return "/home/home";
     }
 
     @PostMapping("/logout")
