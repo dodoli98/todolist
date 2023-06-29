@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 public class TodoListController {
@@ -23,15 +25,6 @@ public class TodoListController {
 
     @Autowired
     private MemberService memberService;
-
-    @GetMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("list", todoListService.getList());
-        todoListService.getList();
-        log.info("TodoListController#getList()");
-
-        return "/todolist/list";
-    }
 
 
     @PostMapping("/write")
@@ -54,13 +47,20 @@ public class TodoListController {
         return "redirect:/todolist/read";
     }
 
+    /*
+    @GetMapping("/read")
+    public TodoListVO read(@RequestParam Long id) {
+        log.info("Service.read(id) = {}", id);
+        return todoListService.get(id);
+    }
+    */
 
     @GetMapping("/read")
-    public String read(@RequestParam Long id) {
-        todoListService.get(id);
-
+    public String read(@RequestParam Long id, Model model) {
+        TodoListVO todoListVO = todoListService.get(id);
+        model.addAttribute("todolistVO", todoListVO);
         log.info("Service.read(id) = {}", id);
-        return "redirect:/todolist/read";
+        return "/todolist/read";
     }
 
     @PostMapping("/update")

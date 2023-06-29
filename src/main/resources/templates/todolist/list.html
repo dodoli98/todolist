@@ -2,14 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+
 </head>
+
 <body>
-<form method="post" action="서버의url" id="login-form">
-    <input type="text" name="login_id" placeholder="Email">
-    <input type="password" name="login_passwd" placeholder="Password">
-    <input type="submit" value="login">
-</form>
+    <h1>Todo-List</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="todolist : ${list}">
+                <td th:text="${todolist.content}"><a></a></td>
+                <td>
+                    <a th:href="@{/read(id=${todolist.todo_id})}">Show Detail</a>
+                </td>
+                   
+        </tbody>
+    </table>
+
+    <p>
+        [<a href="write">Write new list</a>]
+    </p>
 
 </body>
 </html>

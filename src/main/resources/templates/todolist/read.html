@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Read_Page</title>
 </head>
 <body>
-<form method="post" action="서버의url" id="login-form">
-    <input type="text" name="login_id" placeholder="Email">
-    <input type="password" name="login_passwd" placeholder="Password">
-    <input type="submit" value="login">
-</form>
+    <ul id="info">
+        <li>Content: <span th:text="${todolistVO.content}"></span></li>
+        <li>RegisterDate: <span th:text="${todolistVO.regdate}"></span></li>
+        <li>Updatedate: <span th:text="${todolistVO.updatedate}"></span></li>
+    </ul>
 
 </body>
 </html>
