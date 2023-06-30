@@ -13,17 +13,13 @@
     <table border="1">
         <thead>
             <tr>
-                <th>Content</th>
-                <th></th>
-                <th></th>
+                <th>dfd</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="todolist : ${list}">
-                <td th:text="${todolist.content}"><a></a></td>
-                <td>
-                    <a th:href="@{/read(id=${todolist.todo_id})}">Show Detail</a>
-                </td>
+                <td><a th:text="${todolist.content}" th:href="@{/read(id=${todolist.todo_id})}"></a></td>
+                <td><input type="checkbox" value="is_completed"></td>
                    
         </tbody>
     </table>
