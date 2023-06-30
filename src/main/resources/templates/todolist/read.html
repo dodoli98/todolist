@@ -5,11 +5,15 @@
     <title>Read_Page</title>
 </head>
 <body>
+    <h1></h1>
     <ul id="info">
         <li>Content: <span th:text="${todolistVO.content}"></span></li>
         <li>RegisterDate: <span th:text="${todolistVO.regdate}"></span></li>
         <li>Updatedate: <span th:text="${todolistVO.updatedate}"></span></li>
     </ul>
 
+    <p>
+        [<a href="update">Update</a>]√
+    </p>
 </body>
 </html>
