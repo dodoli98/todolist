@@ -26,6 +26,10 @@ public class TodoListController {
     @Autowired
     private MemberService memberService;
 
+    @GetMapping("/showWritePage")
+    public String showWritePage() {
+        return "/todolist/write";
+    }
 
     @PostMapping("/write")
     public String write(HttpServletRequest request, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
@@ -44,7 +48,7 @@ public class TodoListController {
 
         log.info("write = {}", todoListVO);
 
-        return "redirect:/todolist/read";
+        return "/todolist/read";
     }
 
     /*

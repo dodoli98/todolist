@@ -1,15 +1,18 @@
 spring:
-  resources:
-    static-location: file:src/main/resources/static/
   thymeleaf:
     prefix: classpath:templates/
-    suffix: .html
+    mode: HTML
     cache: false
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:h2:~/todolist;AUTO_SERVER=TRUE
     username: sa
     password:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
 mybatis:
   mapper-locations: mapper/**/*.xml
