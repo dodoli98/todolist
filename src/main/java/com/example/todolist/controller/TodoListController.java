@@ -10,9 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -31,6 +29,36 @@ public class TodoListController {
         return "/todolist/write";
     }
 
+    /*
+    @GetMapping("/showUpdatePage")
+    public String showUpdatePage(@RequestParam Long id, Model model,  RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("id", id);
+        return "/todolist/update";
+    }
+     */
+
+    @GetMapping("/showUpdatePage")
+    public String showUpdatePage(@RequestParam Long id, Model model, RedirectAttributes redirectAttributes) {
+        TodoListVO todoListVO = todoListService.get(id);
+        model.addAttribute("todoListVO", todoListVO);
+        return "/todolist/update";
+    }
+
+
+    @GetMapping("/list")
+    public String list(HttpServletRequest request, Model model) {
+        String loginId = (String) request.getSession().getAttribute("login_id");
+
+        if (loginId != null) {
+            List<TodoListVO> todoList = todoListService.getList();
+            model.addAttribute("list", todoList);
+            log.info("TodoListController#getList()");
+            return "/todolist/list";
+        } else {
+            return "redirect:/home";
+        }
+    }
+
     @PostMapping("/write")
     public String write(HttpServletRequest request, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
         // 세션객체를 생성해서
@@ -46,35 +74,43 @@ public class TodoListController {
         todoListVO.setMember(member);
         todoListService.register(todoListVO);
 
+
         log.info("write = {}", todoListVO);
 
+        return "redirect:/list";
+    }
+
+
+    @GetMapping("/read")
+    public String read(@ModelAttribute("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        TodoListVO todoListVO = todoListService.get(id);
+        model.addAttribute("todolistVO", todoListVO);
+
+        log.info("Service.read(id) = {}", id);
         return "/todolist/read";
     }
 
     /*
-    @GetMapping("/read")
-    public TodoListVO read(@RequestParam Long id) {
-        log.info("Service.read(id) = {}", id);
-        return todoListService.get(id);
-    }
-    */
-
-    @GetMapping("/read")
-    public String read(@RequestParam Long id, Model model) {
-        TodoListVO todoListVO = todoListService.get(id);
-        model.addAttribute("todolistVO", todoListVO);
-        log.info("Service.read(id) = {}", id);
-        return "/todolist/read";
-    }
-
     @PostMapping("/update")
-    public String update(@RequestParam Long id, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
+    public String update(@RequestParam("id") Long id, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
         todoListService.update(todoListVO);
 
         log.info("Controller#Update");
 
-        return "redirect:/todolist/list";
+        return "todolist/list";
     }
+     */
+
+    @PostMapping("/update")
+    public String update(@RequestParam Long id, Model model, RedirectAttributes redirectAttributes) {
+        model.addAttribute("todoListVO", todoListService.get(id));
+
+        log.info("Controller#Update");
+
+        return "redirect:/todolist/read";
+    }
+
+
 
     @GetMapping("/delete")
     public String delete(@RequestParam Long id) {
@@ -82,7 +118,7 @@ public class TodoListController {
 
         log.info("Service.delete(id) = {}", id);
 
-        return "redirect:/todolist/list";
+        return "todolist/list";
     }
 
     // 로그인 성공이후 회원이 자신의 비밀번호를 수정하는 메서드
@@ -92,7 +128,7 @@ public class TodoListController {
         memberService.update(memberVO);
 
 
-        return "redirect:/todolist/list";
+        return "todolist/list";
     }
 
 }

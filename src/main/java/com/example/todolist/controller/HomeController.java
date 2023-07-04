@@ -50,6 +50,7 @@ public class HomeController {
         return "/home/home";
     }
 
+    /*
     // 로그인에 성공한경우 세션 객체에 아이디 정보를 저장한다.
     // 그 다음 리스트를 출력하거나 리스트관련 로직을 처리할 때 계속 세션에 있는 아이디 정보를 사용
     // 그 후 로그아웃 메서드가 호출되면 세션을 해제해 주도록한다.
@@ -67,6 +68,18 @@ public class HomeController {
             return "/todolist/list";
         } else
             return "/home/home";
+    }
+
+     */
+
+    @PostMapping("/login")
+    public String login(HttpServletRequest request, String login_id, String login_passwd) {
+        if (loginService.login(login_id, login_passwd)) {
+            request.getSession().setAttribute("login_id", login_id);
+            return "redirect:/list";
+        } else {
+            return "redirect:/home";
+        }
     }
 
     @PostMapping("/logout")

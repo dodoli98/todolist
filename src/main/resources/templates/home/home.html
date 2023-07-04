@@ -1,3 +1,5 @@
+
+<!--
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -7,7 +9,7 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>TodoList</h1>
+    <h1>Login</h1>
     <form method="post" action="login" id="login-form">
         <input type="text" name="login_id" placeholder="Id">
         <input type="password" name="login_passwd" placeholder="Password">
@@ -15,7 +17,28 @@
     </form>
 
 
-    <a href="showRegisterPage">Go to Register</a>
+    <a th:href="showRegisterPage">Go to Register</a>
 
+
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Home</title>
+</head>
+<body>
+<h1>Login</h1>
+<form method="post" th:action="@{/login}" id="login-form">
+    <input type="text" name="login_id" placeholder="Id">
+    <input type="password" name="login_passwd" placeholder="Password">
+    <input type="submit" value="Sign-in">
+</form>
+
+<a th:href="@{/showRegisterPage}">Go to Register</a>
 </body>
 </html>
