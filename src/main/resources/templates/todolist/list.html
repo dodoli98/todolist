@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <title>List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('delete').addEventListener('click', function (event) {
+                if (!window.confirm('Are you sure to delete the post?'))
+                    event.preventDefault();
+            });
+        });
+    </script>
 </head>
-
 <body>
     <h1>Todo-List</h1>
 
     <table border="1">
         <thead>
             <tr>
-                <th>content</th>
+                <th>Content</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="todolist : ${list}">
                 <td><a th:text="${todolist.content}" th:href="@{/read(id=${todolist.todo_id})}"></a></td>
-                <td><input type="checkbox" value="is_completed"></td>
+                <td><input type="checkbox" name="delete"></td>
                    
         </tbody>
     </table>

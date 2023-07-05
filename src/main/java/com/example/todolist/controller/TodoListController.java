@@ -82,7 +82,7 @@ public class TodoListController {
 
 
     @GetMapping("/read")
-    public String read(@ModelAttribute("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String read(@RequestParam("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         TodoListVO todoListVO = todoListService.get(id);
         model.addAttribute("todolistVO", todoListVO);
 
@@ -99,16 +99,29 @@ public class TodoListController {
 
         return "todolist/list";
     }
-     */
 
     @PostMapping("/update")
-    public String update(@RequestParam Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         model.addAttribute("todoListVO", todoListService.get(id));
 
         log.info("Controller#Update");
 
         return "redirect:/todolist/read";
     }
+
+     */
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute("todoListVO") TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
+        todoListService.update(todoListVO);
+
+        log.info("Controller#Update");
+
+        redirectAttributes.addAttribute("id", todoListVO.getTodo_id());
+
+        return "redirect:/read";
+    }
+
 
 
 
@@ -120,6 +133,8 @@ public class TodoListController {
 
         return "todolist/list";
     }
+
+
 
     // 로그인 성공이후 회원이 자신의 비밀번호를 수정하는 메서드
     @PostMapping("/update_passwd")
