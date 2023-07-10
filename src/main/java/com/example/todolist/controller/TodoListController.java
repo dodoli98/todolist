@@ -125,7 +125,8 @@ public class TodoListController {
 
 
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
+    @ResponseBody
     public String delete(@RequestParam Long id) {
         todoListService.delete(id);
 

@@ -3,37 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <title>List</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        window.addEventListener('load', function () {
-            document.getElementById('delete').addEventListener('click', function (event) {
-                if (!window.confirm('Are you sure to delete the post?'))
-                    event.preventDefault();
-            });
+    $(document).ready(function () {
+        $('input[name="delete"]').click(function () {
+            if (confirm('Are you sure to delete the post?')) {
+                var todoId = $(this).data('todo-id');
+                setTimeout(function () {
+                    $.ajax({
+                        url: '/delete',
+                        type: 'POST',
+                        data: { id: todoId },
+                        success: function () {
+                            // 삭제 성공 시 수행할 작업
+                            location.reload(); // 페이지 새로고침
+                        },
+                        error: function () {
+                            // 삭제 실패 시 수행할 작업
+                            alert('Failed to delete the post.');
+                        }
+                    });
+                }, 3000); // 3초 후에 삭제 요청 전송
+            }
         });
+    });
+
     </script>
+
+    <style>
+        body {
+            background-color: #E2E2E2;
+        }
+
+        
+        #title > h1{
+            color: #838BB2;
+            font-size: 3.2em;
+            font-weight: bold;
+            text-align: right;
+            padding-right: 20%;
+            margin: 40px 0 30px 0;
+        }
+
+        #container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        }
+
+
+        /* leftside */
+        #account_info {
+            width: 20%;
+        }
+
+        #account_info > ul {
+            padding: 40px;
+        }
+
+        #account_info > ul > li {
+            padding: 5px;
+        }
+
+        #listbox {
+            width: 60%;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        /* contentside */
+        #list{
+            width: 100%;
+            border-collapse: collapse;
+
+        }
+
+        #list > thead > tr > th {
+            border: 1px solid;
+            padding: 10px;
+        }
+
+        #list > tbody > tr > td {
+            border: 1px solid gray;
+            padding: 5px;
+        }
+
+
+        
+
+        thead th:first-child {
+            width: 80%;
+        }
+
+        thead th:last-child {
+            width: 10%;
+        }
+
+
+
+
+        /* emptyside */
+        #rightside {
+            width: 20%;
+        }
+        
+    </style>
+
 </head>
 <body>
-    <h1>Todo-List</h1>
+    <div id="title">
+        <h1>Todo-List</h1>
+    </div>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Content</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="todolist : ${list}">
-                <td><a th:text="${todolist.content}" th:href="@{/read(id=${todolist.todo_id})}"></a></td>
-                <td><input type="checkbox" name="delete"></td>
-                   
-        </tbody>
-    </table>
+    <div id="container">
 
-    <p>
-        [<a href="showWritePage">Write a new list</a>]
-    </p>
+        <div id="account_info">
+            <ul>
+                <li>이름</li>
+                <li>아이디</li>
+                <li>
+                    <a>비밀번호 변경</a>
+                </li>
+            </ul>
+        </div>
+    
+        <div id="listbox">
+           
+            <div id="table_wrapper">
+                <table id="list">
+                    <thead>
+                        <tr>
+                            <th>Content</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="todolist : ${list}">
+                            <td>
+                                <a th:text="${todolist.content}" th:href="@{/read(id=${todolist.todo_id})}"></a>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="delete" th:data-todo-id="${todolist.todo_id}" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <p>
+                [<a href="showWritePage">Write a new list</a>]
+            </p>
+    
+        </div>
+
+        <div id="rightside">
+        </div>
+    </div>
 
 </body>
 </html>
