@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+
+    <div>
+        <h1>Update List</h1>
+
+        <form method="post" th:action="@{/update}">
+            <input type="hidden" name="todo_id" th:value="${todoListVO.todo_id}" />
+            <input type="text" name="content" th:value="${todoListVO.content}" />
+            <input type="submit" value="Update" />
+        </form>
+    </div>
+
+    <div>
+        <h1>Update Passwd</h1>
+    </div>
+
+
+
+</body>
+</html>
+
+

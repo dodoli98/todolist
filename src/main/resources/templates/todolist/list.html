@@ -121,10 +121,10 @@
 
         <div id="account_info">
             <ul>
-                <li>이름</li>
-                <li>아이디</li>
+                <li>Username: <span th:text="${memberVO?.login_id}"></span></li>
+                <li>Name: <span th:text="${memberVO?.name}"></span></li>
                 <li>
-                    <a>비밀번호 변경</a>
+                    [<a th:href="@{showUpdatePasswdPage}">Update password</a>]
                 </li>
             </ul>
         </div>

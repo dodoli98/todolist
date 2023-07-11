@@ -13,7 +13,11 @@
     </ul>
 
     <p>
-        [<a href="showUpdatePage">Update</a>]
+        [<a th:href="@{/showUpdatePage(id=${todolistVO.todo_id})}">Update</a>]
     </p>
+    <p>
+        [<a th:href="@{/list}">List</a>]
+    </p>
+
 </body>
 </html>

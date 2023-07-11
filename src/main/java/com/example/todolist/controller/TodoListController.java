@@ -29,21 +29,30 @@ public class TodoListController {
         return "/todolist/write";
     }
 
-    /*
     @GetMapping("/showUpdatePage")
-    public String showUpdatePage(@RequestParam Long id, Model model,  RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("id", id);
-        return "/todolist/update";
-    }
-     */
+    public String showUpdatePage(@RequestParam("id") Long id, Model model, RedirectAttributes redirectAttributes) {
 
-    @GetMapping("/showUpdatePage")
-    public String showUpdatePage(@RequestParam Long id, Model model, RedirectAttributes redirectAttributes) {
         TodoListVO todoListVO = todoListService.get(id);
         model.addAttribute("todoListVO", todoListVO);
+
         return "/todolist/update";
     }
 
+/*
+    @GetMapping("/showUpdatePasswdPage")
+    public String showUpdatePasswdPage (HttpServletRequest request, Model model) {
+        String loginId = (String) request.getSession().getAttribute("login_id");
+
+        // "memberVO" 객체를 모델에 추가
+        MemberVO memberVO = memberService.read(loginId);
+        model.addAttribute("memberVO", memberVO);
+
+        return "/todolist/update";
+    }
+
+
+
+ */
 
     @GetMapping("/list")
     public String list(HttpServletRequest request, Model model) {
@@ -52,12 +61,19 @@ public class TodoListController {
         if (loginId != null) {
             List<TodoListVO> todoList = todoListService.getList();
             model.addAttribute("list", todoList);
+
             log.info("TodoListController#getList()");
+
+            // "memberVO" 객체를 모델에 추가
+            MemberVO memberVO = memberService.read(loginId);
+            model.addAttribute("memberVO", memberVO);
+
             return "/todolist/list";
         } else {
             return "redirect:/home";
         }
     }
+
 
     @PostMapping("/write")
     public String write(HttpServletRequest request, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
@@ -90,39 +106,13 @@ public class TodoListController {
         return "/todolist/read";
     }
 
-    /*
-    @PostMapping("/update")
-    public String update(@RequestParam("id") Long id, TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
-        todoListService.update(todoListVO);
-
-        log.info("Controller#Update");
-
-        return "todolist/list";
-    }
-
-    @PostMapping("/update")
-    public String update(@ModelAttribute("id") Long id, Model model, RedirectAttributes redirectAttributes) {
-        model.addAttribute("todoListVO", todoListService.get(id));
-
-        log.info("Controller#Update");
-
-        return "redirect:/todolist/read";
-    }
-
-     */
-
     @PostMapping("/update")
     public String update(@ModelAttribute("todoListVO") TodoListVO todoListVO, RedirectAttributes redirectAttributes) {
         todoListService.update(todoListVO);
-
         log.info("Controller#Update");
-
         redirectAttributes.addAttribute("id", todoListVO.getTodo_id());
-
         return "redirect:/read";
     }
-
-
 
 
     @PostMapping("/delete")

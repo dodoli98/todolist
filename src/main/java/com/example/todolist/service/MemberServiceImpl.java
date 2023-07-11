@@ -22,8 +22,6 @@ public class MemberServiceImpl implements MemberService {
     public MemberVO read(String login_id) {
         log.info("Read");
 
-        mapper.read(login_id);
-
         return mapper.read(login_id);
     }
 

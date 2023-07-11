@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Write</title>
+</head>
+<body>
+<h1>Write a new list</h1>
+
+<form th:action="@{/write}" method="post">
+    <input type="text" name="content" placeholder="write a new content">
+
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

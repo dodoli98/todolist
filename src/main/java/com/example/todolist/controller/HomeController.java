@@ -3,6 +3,7 @@ package com.example.todolist.controller;
 import com.example.todolist.domain.MemberVO;
 import com.example.todolist.domain.TodoListVO;
 import com.example.todolist.service.LoginService;
+import com.example.todolist.service.MemberService;
 import com.example.todolist.service.RegisterService;
 import com.example.todolist.service.TodoListService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,9 @@ public class HomeController {
 
     @Autowired
     private TodoListService todoListService;
+
+    @Autowired
+    private MemberService memberService;
 
 
     @GetMapping("/home")
@@ -73,9 +77,10 @@ public class HomeController {
      */
 
     @PostMapping("/login")
-    public String login(HttpServletRequest request, String login_id, String login_passwd) {
+    public String login(HttpServletRequest request, String login_id, String login_passwd, Model model) {
         if (loginService.login(login_id, login_passwd)) {
             request.getSession().setAttribute("login_id", login_id);
+
             return "redirect:/list";
         } else {
             return "redirect:/home";
