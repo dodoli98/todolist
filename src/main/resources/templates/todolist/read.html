@@ -3,21 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <title>Read_Page</title>
-</head>
-<body>
-    <h1></h1>
-    <ul id="info">
-        <li>Content: <span th:text="${todolistVO.content}"></span></li>
-        <li>RegisterDate: <span th:text="${todolistVO.regdate}"></span></li>
-        <li>Updatedate: <span th:text="${todolistVO.updatedate}"></span></li>
-    </ul>
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
 
-    <p>
-        [<a th:href="@{/showUpdatePage(id=${todolistVO.todo_id})}">Update</a>]
-    </p>
-    <p>
-        [<a th:href="@{/list}">List</a>]
-    </p>
+    <style>
+        body {
+            background-color: #CACFE3;
+        }
+
+        #container{
+            width: 500px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        #box{
+            background-color: white;
+            padding: 2em;
+        }
+
+        
+        #info > li  {
+            border: 1px solid #CACFE3;
+            padding: 5px;
+            border-radius: 5px;
+            display: block;
+            margin-bottom: 1em;
+            
+        }
+        
+        #button {
+            text-align: center;
+        }
+
+        #button > p {
+            margin: 0px 7px 0px 7px;
+            display: inline-block;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="container">
+        <div id="box">
+            <ul id="info">
+                <li>Content: <span th:text="${todolistVO.content}"></span></li>
+                <li>RegisterDate: <span th:text="${todolistVO.regdate}"></span></li>
+                <li>Updatedate: <span th:text="${todolistVO.updatedate}"></span></li>
+            </ul>
+            
+            <div id="button">
+                <p>
+                    [<a th:href="@{/list}">Back to List</a>]
+                </p>
+                <p>
+                    [<a th:href="@{/showUpdatePage(id=${todolistVO.todo_id})}">Update content</a>]
+                </p>
+
+            </div>
+
+        </div>
+    </div>
 
 </body>
 </html>

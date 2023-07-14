@@ -38,10 +38,11 @@ public class TodoListController {
         return "/todolist/update";
     }
 
-/*
+
     @GetMapping("/showUpdatePasswdPage")
     public String showUpdatePasswdPage (HttpServletRequest request, Model model) {
         String loginId = (String) request.getSession().getAttribute("login_id");
+        log.info("session = {}", loginId);
 
         // "memberVO" 객체를 모델에 추가
         MemberVO memberVO = memberService.read(loginId);
@@ -50,9 +51,6 @@ public class TodoListController {
         return "/todolist/update";
     }
 
-
-
- */
 
     @GetMapping("/list")
     public String list(HttpServletRequest request, Model model) {
@@ -129,12 +127,14 @@ public class TodoListController {
 
     // 로그인 성공이후 회원이 자신의 비밀번호를 수정하는 메서드
     @PostMapping("/update_passwd")
-    public String update_passwd(MemberVO memberVO) {
+    public String update_passwd(@ModelAttribute("memberVO") MemberVO memberVO, RedirectAttributes redirectAttributes) {
+        log.info("Controller#Update_passwd111");
 
         memberService.update(memberVO);
+        log.info("Controller#Update_passwd222");
 
 
-        return "todolist/list";
+        return "redirect:/list";
     }
 
 }

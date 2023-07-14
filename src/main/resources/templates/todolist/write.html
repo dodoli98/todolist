@@ -3,14 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Write</title>
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+    <style>
+        body{
+            background-color: #CACFE3;
+        }
+        #container{
+            width: 500px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        #box{
+            background-color: white;
+            padding: 2em;
+        }
+
+        #box > h1 {
+            color: #838BB2;
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+       
+        
+        
+        #write > input {
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 1em;
+            border: 1px solid #CACFE3;
+        }
+        
+
+        #write > input[type="submit"] {
+            color: black;
+            text-align: center;
+            line-height: 3em;
+        }
+   
+
+
+    </style>
 </head>
 <body>
-<h1>Write a new list</h1>
+    <div id="container">
+        <div id="box">
+            <h1>Write a new list</h1>
+            
+            <form th:action="@{/write}" method="post" id="write">
+                <input type="text" name="content" placeholder="write a new content">
+            
+                <input type="submit" value="Submit">
+            </form>
 
-<form th:action="@{/write}" method="post">
-    <input type="text" name="content" placeholder="write a new content">
-
-    <input type="submit" value="Submit">
-</form>
+        </div>
+    </div>
 </body>
 </html>

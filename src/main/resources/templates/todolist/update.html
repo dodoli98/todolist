@@ -3,23 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Update</title>
+    <link th:href="@{/css/reset.css}" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #CACFE3;
+        }
+
+        .container{
+            width: 500px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+        .box{
+            background-color: white;
+            padding: 2em;
+        }
+
+        .box > h1 {
+            color: #838BB2;
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        .update input:nth-child(2) {
+            border: 1px solid #CACFE3;
+            border-radius: 5px;
+        }
+
+        .update > input  {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 1em;
+            border: 1px #CACFE3;
+        }
+        
+        .update > input[type="submit"] {
+            border-radius: 5px;
+            color: black;
+            text-align: center;
+            line-height: 3em;
+        }
+    </style>
 </head>
 <body>
 
-    <div>
-        <h1>Update List</h1>
-
-        <form method="post" th:action="@{/update}">
-            <input type="hidden" name="todo_id" th:value="${todoListVO.todo_id}" />
-            <input type="text" name="content" th:value="${todoListVO.content}" />
-            <input type="submit" value="Update" />
-        </form>
+    <div th:if="${memberVO != null}" class="container">
+        <div class="box">
+            <h1>Update Password</h1>
+    
+            <form method="post" th:action="@{/update_passwd}" class="update">
+                <input type="hidden" name="login_id" th:value="${memberVO.login_id}" />
+                <input type="password" name="login_passwd" th:value="${memberVO.login_passwd}" />
+                <input type="submit" value="Update_password" />
+            </form>
+        </div>
     </div>
 
-    <div>
-        <h1>Update Passwd</h1>
+    <div th:if="${todoListVO != null}" class="container">
+        <div class="box">
+            <h1>Update Content</h1>
+    
+            <form method="post" th:action="@{/update}" class="update">
+                <input type="hidden" name="todo_id" th:value="${todoListVO.todo_id}" />
+                <input type="text" name="content" th:value="${todoListVO.content}" />
+                <input type="submit" value="Update" />
+            </form>
+        </div>
     </div>
-
 
 
 </body>
