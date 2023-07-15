@@ -53,9 +53,17 @@ public class TodoListServiceImpl implements TodoListService {
     }
 
     @Override
-    public List<TodoListVO> getList() {
+    public List<TodoListVO> getList(String memberLoginId) {
         log.info("getList");
 
-        return mapper.getList();
+        return mapper.getList(memberLoginId);
     }
+
+    @Override
+    public boolean deleteByMemberLoginId(String memberLoginId) {
+        log.info("Delete List where = {}", memberLoginId);
+
+        return mapper.deleteByMemberLoginId(memberLoginId) == 1;
+    }
+
 }

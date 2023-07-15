@@ -57,7 +57,7 @@ public class TodoListController {
         String loginId = (String) request.getSession().getAttribute("login_id");
 
         if (loginId != null) {
-            List<TodoListVO> todoList = todoListService.getList();
+            List<TodoListVO> todoList = todoListService.getList(loginId);
             model.addAttribute("list", todoList);
 
             log.info("TodoListController#getList()");
@@ -125,16 +125,30 @@ public class TodoListController {
 
 
 
-    // 로그인 성공이후 회원이 자신의 비밀번호를 수정하는 메서드
+    // 로그인 성공이후 회원의 비밀번호를 수정하는 메서드
     @PostMapping("/update_passwd")
     public String update_passwd(@ModelAttribute("memberVO") MemberVO memberVO, RedirectAttributes redirectAttributes) {
-        log.info("Controller#Update_passwd111");
+        log.info("Controller#Update_passwd");
 
         memberService.update(memberVO);
-        log.info("Controller#Update_passwd222");
 
 
         return "redirect:/list";
     }
+
+    // 회원 정보를 삭제하는 메서드
+    @PostMapping("/delete_member")
+    public String delete_member(HttpServletRequest request) {
+        log.info("Controller#delete_member");
+        String loginId = (String) request.getSession().getAttribute("login_id");
+
+        todoListService.deleteByMemberLoginId(loginId);
+
+        memberService.delete(loginId);
+
+        return "redirect:/home";
+
+    }
+
 
 }

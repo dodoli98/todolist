@@ -50,8 +50,8 @@ class HomeControllerTest {
     public void testLogin() throws Exception{
         // POST 방식의 요청
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/login")
-                .param("login_id", "b")
-                .param("login_passwd", "123");
+                .param("login_id", "222")
+                .param("login_passwd", "222");
 
         mockMvc.perform(builder)
                 .andExpect(status().is3xxRedirection())

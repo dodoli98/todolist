@@ -17,7 +17,7 @@ class TodoListMapperTest {
 
     @Test
     public void testGetList() {
-        List<TodoListVO> list = mapper.getList();
+        List<TodoListVO> list = mapper.getList("loginId");
 
         for (TodoListVO item : list)
             log.info("item = {}", item);

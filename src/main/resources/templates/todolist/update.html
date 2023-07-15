@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Update</title>
     <link th:href="@{/css/reset.css}" rel="stylesheet" />
-
     <style>
         body {
             background-color: #CACFE3;
@@ -51,6 +50,11 @@
             text-align: center;
             line-height: 3em;
         }
+
+        #deleteMember {
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -64,6 +68,13 @@
                 <input type="password" name="login_passwd" th:value="${memberVO.login_passwd}" />
                 <input type="submit" value="Update_password" />
             </form>
+            
+            <div id="deleteMember">
+                <a href="#" onclick="confirmDeleteMember(this)" th:data-login-id="${memberVO.login_id}">
+                    Delete member
+                </a>
+            </div>
+
         </div>
     </div>
 
@@ -76,8 +87,33 @@
                 <input type="text" name="content" th:value="${todoListVO.content}" />
                 <input type="submit" value="Update" />
             </form>
+        
         </div>
     </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function confirmDeleteMember(element) {
+            if (confirm('Are you sure to delete the member?')) {
+                var loginId = $(element).data('login-id');
+                $.ajax({
+                    url: '/delete_member',
+                    type: 'POST',
+                    data: { loginId: loginId },
+                    success: function () {
+                        // 삭제 성공 시 수행할 작업
+                        window.location.href = '/home'; // 리다이렉션 예시
+                    },
+                    error: function () {
+                        // 삭제 실패 시 수행할 작업
+                        alert('Failed to delete the member.');
+                    }
+                });
+            }
+        }
+    </script>
+
 
 
 </body>

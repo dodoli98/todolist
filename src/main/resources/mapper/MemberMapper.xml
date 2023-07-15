@@ -16,7 +16,6 @@
         WHERE login_id = #{login_id}
     </update>
 
-    <!-- Delete: 특정 TodoList 레코드 삭제 -->
     <delete id="delete" parameterType="String">
         DELETE FROM member WHERE login_id = #{login_id}
     </delete>

@@ -42,5 +42,14 @@ public interface TodoListService {
      *
      * @return TodoListVO 객체들을 담고 있는 List 객체
      */
-    List<TodoListVO> getList();
+    List<TodoListVO> getList(String memberLoginId);
+
+
+    /**
+     * DELETE: 게시물을 삭제
+     *
+     * @param memberLoginId 삭제 할 레코드의 작성자
+     * @return 정상적으로 게시물을 삭제했는지 여부 (True/False)
+     */
+    boolean deleteByMemberLoginId(String memberLoginId);
 }

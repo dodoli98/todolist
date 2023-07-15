@@ -123,5 +123,12 @@ class TodoListControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    public void testDelete_member() throws Exception{
+        // 요청을 수행하고, 요청과 응답 결과 확인
+        mockMvc.perform(get("/delete_member").param("loginId", "222"))
+                .andDo(print());                    // 요청과 응답 결과를 출력
+    }
+
 
 }

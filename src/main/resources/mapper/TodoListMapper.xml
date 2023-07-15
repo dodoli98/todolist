@@ -7,6 +7,7 @@
     <!-- board 테이블의 모든 레코드를 조회 -->
     <select id="getList" resultType="com.example.todolist.domain.TodoListVO">
         SELECT * FROM todolist
+        WHERE member_login_id = #{member_login_id}
     </select>
 
     <!-- Create: 새로운 TodoList 레코드 추가 -->
@@ -35,5 +36,13 @@
     <delete id="delete" parameterType="Long">
         DELETE FROM todolist WHERE todo_id = #{id}
     </delete>
+
+    <!-- 회원 정보를 삭제하기 전에 회원이 작성한 모든 레코드를 삭제 -->
+    <!-- 이를 실행하지 않으면 외래키 제약조건에 위배 -->
+    <delete id="deleteByMemberLoginId" parameterType="String">
+        DELETE FROM todolist WHERE member_login_id = #{member_login_id}
+    </delete>
+
+
 
 </mapper>

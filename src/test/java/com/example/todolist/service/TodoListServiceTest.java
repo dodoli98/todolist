@@ -19,7 +19,7 @@ class TodoListServiceTest {
 
     @Test
     public void testGetList() {
-        List<TodoListVO> list = todoListService.getList();
+        List<TodoListVO> list = todoListService.getList("login123");
 
         for (TodoListVO item : list)
             log.info("item = {}", item);
@@ -38,7 +38,7 @@ class TodoListServiceTest {
 
     @Test
     public void testGet() {
-        log.info("todoListService.get()= {}", todoListService.get(4L));
+        log.info("todoListService.get()= {}", todoListService.get(9L));
     }
 
     @Test
