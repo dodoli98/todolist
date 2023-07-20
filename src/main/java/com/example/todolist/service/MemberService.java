@@ -35,4 +35,5 @@ public interface MemberService {
      * @return 모든 레코드
      */
     List<MemberVO> getList();
+
 }

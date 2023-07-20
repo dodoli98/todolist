@@ -7,6 +7,7 @@ import com.example.todolist.service.MemberService;
 import com.example.todolist.service.RegisterService;
 import com.example.todolist.service.TodoListService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @Slf4j
@@ -68,7 +70,19 @@ public class HomeController {
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
-        request.getSession().removeAttribute("login_id");
+        HttpSession session = request.getSession();
+
+        // 로그인 ID를 세션에서 제거합니다.
+        String loginId = (String) session.getAttribute("login_id");
+        session.removeAttribute("login_id");
+
+        // 세션에 로그인 ID가 있는지 확인하는 로그를 작성합니다.
+        Logger logger = Logger.getLogger(getClass().getName());
+        if (loginId != null) {
+            logger.info("User with login ID " + loginId + " logged out.");
+        } else {
+            logger.info("Logout request, but user was not logged in.");
+        }
         return "redirect:/home";
     }
 

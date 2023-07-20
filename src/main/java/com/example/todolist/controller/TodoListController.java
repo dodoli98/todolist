@@ -133,7 +133,7 @@ public class TodoListController {
         memberService.update(memberVO);
 
 
-        return "redirect:/list";
+        return "redirect:/home";
     }
 
     // 회원 정보를 삭제하는 메서드

@@ -16,20 +16,34 @@
                         type: 'POST',
                         data: { id: todoId },
                         success: function () {
-                            // 삭제 성공 시 수행할 작업
                             location.reload(); // 페이지 새로고침
                         },
                         error: function () {
-                            // 삭제 실패 시 수행할 작업
                             alert('Failed to delete the post.');
                         }
                     });
-                }, 3000); // 3초 후에 삭제 요청 전송
+                }, 3000);
             }
         });
     });
+    $(document).ready(function() {
+        $('a[name="logout"]').on('click', function(event) {
+            event.preventDefault(); // 링크 클릭 기본 동작을 막습니다.
 
+            $.ajax({
+                type: 'POST',
+                url: '/logout',
+                success: function() {
+                    window.location.href = '/home';
+                },
+                error: function() {
+                    console.log('Error occurred during logout.');
+                }
+            });
+        });
+    });
     </script>
+    
 
     <style>
         body {
@@ -126,6 +140,9 @@
                 <li>Name: <span th:text="${memberVO?.name}"></span></li>
                 <li>
                     [<a th:href="@{showUpdatePasswdPage}">Update password</a>]
+                </li>
+                <li>
+                    [<a name="logout">Logout</a>]
                 </li>
             </ul>
         </div>
